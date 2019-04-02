@@ -1,0 +1,8 @@
+[package]
+name = "hangman_game"
+version = "0.1.0"
+authors = ["Mathieu Schimmerling <mathieu.schimmerling.ext@orange.com>"]
+edition = "2018"
+
+[dependencies]
+rand = "0.6.5"
