@@ -9,8 +9,8 @@ fn random_number(min: i32, max: i32) -> i32 {
 }
 
 fn main() {
-    println!("Welcome to Hangman game !");
-    const WORDS: [&str; 9] = [
+    println!("Welcome to Hangman game ! Write a letter.");
+    const WORDS: [&str; 8] = [
         "Feuille",
         "Trombone",
         "Gilet pare-balles",
@@ -23,23 +23,23 @@ fn main() {
     let nb = random_number(0, WORDS.len() as i32);
 
     let word_to_guess = WORDS[nb as usize].to_uppercase();
-    println!("word to guess: {}", word_to_guess);
+    // println!("[cheat] word to guess: {}", word_to_guess);
     let mut letters_found: Vec<char> = vec![];
 
     loop {
-        let mut guess = String::new();
+        let mut guess_input = String::new();
 
         io::stdin()
-            .read_line(&mut guess)
+            .read_line(&mut guess_input)
             .expect("Failed to read line");
 
-        let guess_len = guess.trim().len(); // Always trim user input
+        let guess_len = guess_input.trim().len(); // Always trim user input
         if guess_len != 1 {
             continue;
         }
 
         for letter in word_to_guess.chars() {
-            let guess_letter = guess.trim().to_uppercase().chars().next().unwrap();
+            let guess_letter = guess_input.trim().to_uppercase().chars().next().unwrap();
             let mut is_already_found = false;
 
             if letter == guess_letter {
@@ -90,6 +90,11 @@ fn main() {
         }
 
         println!("{}", &word_state);
+
+        if &word_to_guess == &word_state {
+            println!("🎉 Congrats, you guessed the word ! 🎉");
+            break;
+        }
         //println!("You guessed these letters: {:?}", &letters_found);
     }
 }
